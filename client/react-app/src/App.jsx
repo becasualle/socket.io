@@ -1,7 +1,12 @@
 import './App.css';
+import io from 'socket.io-client';
+
+const socket = io.connect('http://localhost:3001');
 
 function App() {
-  const sendMessage = () => {};
+  const sendMessage = () => {
+    socket.emit('onSendMessage', { message: 'Hello world!' });
+  };
 
   return (
     <>
