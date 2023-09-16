@@ -1,7 +1,14 @@
 import './App.css';
 
 function App() {
-  return <></>;
+  const sendMessage = () => {};
+
+  return (
+    <>
+      <input type="text" placeholder="message..." />
+      <button onClick={sendMessage}>Send Message</button>
+    </>
+  );
 }
 
 export default App;
