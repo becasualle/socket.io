@@ -5,11 +5,17 @@ import io from 'socket.io-client';
 const socket = io.connect('http://localhost:3001');
 
 function App() {
+  const [room, setRoom] = useState('');
+  const joinRoom = () => {
+    if (room !== '') {
+      socket.emit('onJoinRoom', room);
+    }
+  };
+
   const [message, setMessage] = useState('');
   const [receivedMessage, setReceivedMessage] = useState('');
-
   const sendMessage = () => {
-    socket.emit('onSendMessage', { message });
+    socket.emit('onSendMessage', { message, room });
     setMessage('');
   };
 
@@ -28,7 +34,15 @@ function App() {
       <input
         type="text"
         value={message}
-        placeholder="message..."
+        placeholder="Room Number..."
+        onChange={(e) => setRoom(e.target.value)}
+      />
+      <button onClick={joinRoom}>Join Room</button>
+
+      <input
+        type="text"
+        value={message}
+        placeholder="Message..."
         onChange={(e) => setMessage(e.target.value)}
       />
       <button onClick={sendMessage}>Send Message</button>

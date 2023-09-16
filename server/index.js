@@ -16,8 +16,12 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket) => {
+  socket.on('onJoinRoom', (data) => {
+    socket.join(data);
+  });
+
   socket.on('onSendMessage', (data) => {
-    socket.broadcast.emit('onReceiveMessage', data);
+    socket.to(data.room).emit('onReceiveMessage', data);
   });
 });
 
