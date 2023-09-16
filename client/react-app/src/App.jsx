@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import './App.css';
 import io from 'socket.io-client';
 
@@ -7,6 +8,12 @@ function App() {
   const sendMessage = () => {
     socket.emit('onSendMessage', { message: 'Hello world!' });
   };
+
+  useEffect(() => {
+    socket.on('onReceiveMessage', (data) => {
+      alert(data.message);
+    });
+  }, [socket]);
 
   return (
     <>
