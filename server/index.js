@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
+
 const http = require('http');
-const { Server } = require('socket.io');
 const cors = require('cors');
+
+const { Server } = require('socket.io');
 
 app.use(cors());
 
@@ -20,8 +22,8 @@ io.on('connection', (socket) => {
     socket.join(data);
   });
 
-  socket.on('onSendMessage', (data) => {
-    socket.to(data.room).emit('onReceiveMessage', data);
+  socket.on('onSendMessage', ({ room, message }) => {
+    socket.to(room).emit('onReceiveMessage', message);
   });
 });
 

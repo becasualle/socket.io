@@ -20,8 +20,8 @@ function App() {
   };
 
   useEffect(() => {
-    socket.on('onReceiveMessage', (data) => {
-      setReceivedMessage(data.message);
+    socket.on('onReceiveMessage', (message) => {
+      setReceivedMessage(message);
     });
 
     return () => {
@@ -33,7 +33,7 @@ function App() {
     <>
       <input
         type="text"
-        value={message}
+        value={room}
         placeholder="Room Number..."
         onChange={(e) => setRoom(e.target.value)}
       />
